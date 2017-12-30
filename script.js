@@ -3,24 +3,33 @@ var magazineText, noteText;
 magazineText = "After an overnight stay in a local resident's home, we packed up 12 horses from an adjacent village with gear and started the journey into base camp. The site had been established by the British and Slovenian teams visiting the area in previous years, and our cook, Heera Singh, had been there the prior year. To minimize impact we utilized the same area of the moraine as the other groups had at 4600 meters.";
 
 
-var cleanText = function(text){
+function cleanText(text){
   text = text.replace(/\b[-.,()&$#!\[\]{}"']+\B|\B[-.,()&$#!\[\]{}"']+\b/g, "");
   //Making Lowercase magazineText
   text = text.toLowerCase();
   return text;
 }
 
-var harmlessRansomNote = function(noteText, magazineText){
-  // lowercase and remove punctuation
-  var magazineText = cleanText(magazineText);
-  // lowercase and remove punctuation
-  var noteText = cleanText(noteText);
-  // split note into array of text
-  var noteArr = noteText.split(' ');
-  // split magazine into array of text
-  var magArr = magazineText.split(' ');
+function harmlessRansomNote(noteText, magazineText){
 
-  var magObj = {};
+  var
+    magazineText,
+    noteText,
+    noteArr,
+    magArr,
+    magObj,
+    noteIsPossible;
+
+  // lowercase and remove punctuation
+  magazineText = cleanText(magazineText);
+  // lowercase and remove punctuation
+  noteText = cleanText(noteText);
+  // split note into array of text
+  noteArr = noteText.split(' ');
+  // split magazine into array of text
+  magArr = magazineText.split(' ');
+
+  magObj = {};
   //looping through magazine array
   magArr.forEach(word => {
     //if no word on object will add word with 0
@@ -29,11 +38,16 @@ var harmlessRansomNote = function(noteText, magazineText){
     magObj[word]++
   });
 
+  noteIsPossible = true;
+  noteArr.forEach(word => {
+    if(magObj[word]) { magObj[word]--;
+      if(magObj[word] < 0) { noteIsPossible = false; }
+    } else {
+      noteIsPossible = false;
+    }
+  });
 
-
- console.log(noteArr);
- console.log(magArr);
-console.log(magObj);
+console.log(noteIsPossible);
 }
 
 
@@ -45,4 +59,4 @@ harmlessRansomNote(noteText, magazineText);
 // True result
 noteText = "We minimize the area. The years we cook to impact groups established stay.";
 
-// harmlessRansomNote(noteText, magazineText);
+harmlessRansomNote(noteText, magazineText);
