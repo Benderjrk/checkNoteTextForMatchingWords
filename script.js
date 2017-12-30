@@ -38,7 +38,9 @@ function harmlessRansomNote(noteText, magazineText){
     magObj[word]++
   });
 
+  //to tell us if its possible or not.
   noteIsPossible = true;
+  //check the note to each word in the object. Decrement per word found if obj word count goes below 0 noteIsPossible becomes false
   noteArr.forEach(word => {
     if(magObj[word]) { magObj[word]--;
       if(magObj[word] < 0) { noteIsPossible = false; }
@@ -46,7 +48,7 @@ function harmlessRansomNote(noteText, magazineText){
       noteIsPossible = false;
     }
   });
-
+//console if it is possible or not
 console.log(noteIsPossible);
 }
 
