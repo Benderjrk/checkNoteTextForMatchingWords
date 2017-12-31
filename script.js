@@ -35,7 +35,7 @@ function harmlessRansomNote(noteText, magazineText){
     //if no word on object will add word with 0
     if(!magObj[word]) {magObj[word] = 0;}
     //after word starts at 0 it increments up as it is looped through
-    magObj[word]++
+    magObj[word]++;
   });
 
   //to tell us if its possible or not.
